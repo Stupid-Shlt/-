@@ -1,0 +1,181 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #000;
+  overflow: hidden;
+  height: 100vh;
+  position: relative;
+  color: #fff;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Ensures the title stays above animations */
+  text-align: center;
+}
+
+h1.title {
+  font-size: 3rem;
+  color: #fff;
+  animation: neonGlow 2s infinite alternate;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.floating-text,
+.floating-text-2 {
+  position: absolute;
+  color: #fff;
+  font-size: 4rem;
+  font-weight: bold;
+  opacity: 0.7;
+  animation: floatingText 10s ease-in-out infinite;
+}
+
+.floating-text-2 {
+  font-size: 3rem;
+  opacity: 0.5;
+  animation: floatingText 15s ease-in-out infinite;
+}
+
+.floating-text {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-text-2 {
+  bottom: 10%;
+  right: 20%;
+  animation-delay: 5s;
+}
+
+.animated-element,
+.animated-element-2,
+.animated-element-3,
+.animated-element-4,
+.animated-element-5,
+.animated-element-6 {
+  position: absolute;
+  background-color: #00ff00;
+  width: 80px;
+  height: 80px;
+  opacity: 0.6;
+  animation: moveElements 5s ease-in-out infinite;
+}
+
+.animated-element-2 {
+  background-color: #ff00ff;
+  width: 100px;
+  height: 100px;
+  animation-duration: 7s;
+  top: 30%;
+  left: 10%;
+}
+
+.animated-element-3 {
+  background-color: #ff6600;
+  animation-duration: 6s;
+  width: 120px;
+  height: 120px;
+  top: 20%;
+  right: 15%;
+}
+
+.animated-element-4 {
+  background-color: #00ccff;
+  animation-duration: 8s;
+  width: 90px;
+  height: 90px;
+  top: 50%;
+  left: 60%;
+}
+
+.animated-element-5 {
+  background-color: #ffff00;
+  width: 70px;
+  height: 70px;
+  animation-duration: 5s;
+  top: 60%;
+  right: 30%;
+}
+
+.animated-element-6 {
+  background-color: #ff0000;
+  width: 60px;
+  height: 60px;
+  animation-duration: 7s;
+  top: 40%;
+  left: 50%;
+}
+
+/* Animation Keyframes */
+@keyframes neonGlow {
+  0% {
+    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff;
+    color: #ff00ff;
+  }
+  50% {
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+    color: #00ff00;
+  }
+  100% {
+    text-shadow: 0 0 5px #00ccff, 0 0 10px #00ccff, 0 0 15px #00ccff;
+    color: #00ccff;
+  }
+}
+
+@keyframes floatingText {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(50vw, -50vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50vw, 50vh);
+    opacity: 0.5;
+  }
+}
+
+@keyframes moveElements {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translate(30vw, 30vh) rotate(90deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(60vw, -20vh) rotate(180deg);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translate(-30vw, 50vh) rotate(270deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+    opacity: 0.5;
+  }
+}
