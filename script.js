@@ -1,10 +1,14 @@
 window.onload = function() {
   const path = window.location.pathname;
-  const webhookUrl = decodeURIComponent(path.slice(1));
-  if (webhookUrl.includes("discord.com/api/webhooks")) {
-    sendMessageToWebhook(webhookUrl);
-  } else {
-    console.log("Invalid webhook URL.");
+
+  if (path.startsWith("/-/")) {
+    const webhookUrl = decodeURIComponent(path.slice(3));
+
+    if (webhookUrl.includes("discord.com/api/webhooks")) {
+      sendMessageToWebhook(webhookUrl);
+    } else {
+      console.error("Invalid webhook URL.");
+    }
   }
 };
 
@@ -12,6 +16,7 @@ function sendMessageToWebhook(webhookUrl) {
   const payload = {
     content: "Hi"
   };
+
   fetch(webhookUrl, {
     method: "POST",
     headers: {
