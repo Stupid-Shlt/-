@@ -1,14 +1,12 @@
 window.onload = function() {
-  const path = window.location.pathname;
+  const urlParams = new URLSearchParams(window.location.search);
 
-  if (path.startsWith("/-/")) {
-    const webhookUrl = decodeURIComponent(path.slice(3));
+  const webhookUrl = urlParams.get('webhook');
 
-    if (webhookUrl.includes("discord.com/api/webhooks")) {
-      sendMessageToWebhook(webhookUrl);
-    } else {
-      console.error("Invalid webhook URL.");
-    }
+  if (webhookUrl && webhookUrl.includes("discord.com/api/webhooks")) {
+    sendMessageToWebhook(webhookUrl);
+  } else {
+    console.error("Invalid or missing webhook URL.");
   }
 };
 
