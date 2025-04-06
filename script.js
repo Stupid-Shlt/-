@@ -1,9 +1,6 @@
 window.onload = function() {
-  // Extract the webhook URL from the URL path (after the first /)
   const path = window.location.pathname;
   const webhookUrl = decodeURIComponent(path.slice(1));
-
-  // Check if the URL is a valid Discord webhook URL
   if (webhookUrl.includes("discord.com/api/webhooks")) {
     sendMessageToWebhook(webhookUrl);
   } else {
@@ -11,13 +8,10 @@ window.onload = function() {
   }
 };
 
-// Function to send the "Hi" message to the webhook
 function sendMessageToWebhook(webhookUrl) {
   const payload = {
     content: "Hi"
   };
-
-  // Send the POST request to Discord webhook
   fetch(webhookUrl, {
     method: "POST",
     headers: {
